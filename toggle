@@ -1,0 +1,26 @@
+#!/bin/bash
+
+touch_state="$(< "$HOME/.multitouch_toggle")"
+
+if [[ $touch_state == "LVDS1" ]]; then
+    xinput set-prop 'Wacom ISDv4 E6 Finger touch' 'Device Enabled' 0
+    notify-send -a "ThinkVantage Button Listener" "Finger touch has been disabled." "(Touch currently mapped to $touch_state)"
+    touch_state="OFF"
+elif [[ $touch_state == "VGA1" ]]; then
+    touch_state="LVDS1"
+else
+    touch_state="LVDS1"
+    if xrandr | grep "VGA1 connected"; then
+        touch_state="VGA1"
+    fi
+fi
+
+if [[ $touch_state != "OFF" ]]; then
+    xinput set-prop 'Wacom ISDv4 E6 Finger touch' 'Device Enabled' 1
+    xinput --map-to-output 'Wacom ISDv4 E6 Finger touch' "$touch_state"
+    xinput --map-to-output 'Wacom ISDv4 E6 Pen stylus' "$touch_state"
+    xinput --map-to-output 'Wacom ISDv4 E6 Pen eraser' "$touch_state"
+    notify-send -a "ThinkVantage Button Listener" "Touch remapped" "Touchscreen and Wacom digitizer remapped to $touch_state"
+fi
+
+echo "$touch_state" > "$HOME/.multitouch_toggle"
