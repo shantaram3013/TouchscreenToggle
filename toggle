@@ -39,6 +39,7 @@ fi
 
 if [[ -z $touch_state ]]; then
     notify-send -a $notification_sender "Touch not remapped."
+    exit 1
 fi
 
 if [[ $touch_state != "OFF" ]]; then # touch state is set to a device name.
