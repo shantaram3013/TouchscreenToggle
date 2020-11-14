@@ -15,4 +15,4 @@ If you have only one display, `toggle_single_screen` is for you. It turns on and
 
 #### Bugs:
 None yet. Open an issue if you find one, open a PR if you find one and want to help fix it. Thank you!
-Check out my other projects on [https://shantaram.xyz](my website).
+Check out my other projects on [my website](https://shantaram.xyz).
